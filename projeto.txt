@@ -1,0 +1,16 @@
+CADASTRAR ALUNOS
+botao de adicionar que quando clica abre um formulario de 2 campos
+
+https://www.youtube.com/watch?v=5xxGDehYUGw
+
+1. Instalar o TARGZ do Ventoy.
+
+2. extrair o arquivo
+
+3. Usar lsblk para listar todos os hardwares de memória nao volatil disponiveis no seu computador.
+
+4. Acessar o path abaixo e excutar este comando para instalar o ventoy no seu disco
+
+enzo@inspiron:~/Downloads/ventoy-1.0.99-linux/ventoy-1.0.99$ sudo sh Ventoy2Disk.sh -i /dev/nomedasuaparticao(no meu caso é sda)
+
+instalar duas vezes 
