@@ -1,9 +1,11 @@
 <template>
   <div class="body">
+    <div class="titless">
     <h1>Alunos</h1>
     <button class="add" v-if="buttonAdd" @click="formVisibility()">
       ADICIONAR
     </button>
+    </div>
     <form v-if="inputForm">
       <div class="form">
         <input type="text" placeholder="Nome" v-model="studentInput.name" />
@@ -34,7 +36,19 @@
         </div>
       </div>
     </form>
-    <div v-for="element in students" class="students">
+
+    <div class="filter" >
+      <h3>Busque por um aluno</h3>
+      <input 
+        type="text"
+        v-model="inputFilter"
+      >
+    </div>
+
+
+    <h2>{{ studentsListTitle }}</h2>
+    <br>
+    <div v-for="element in studentsFiltred" class="students">
       <h2>Nome: {{ element.name }}</h2>
       <p>Idade: {{ element.age }}</p>
       <div class="form-buttons">
@@ -50,6 +64,7 @@
 export default {
   data() {
     return {
+      // studentsListTitle: 'Lista de estudantes',
       buttonAdd: true,
       inputForm: false,
       editForm: false,
@@ -65,10 +80,17 @@ export default {
 
       },  
       students: [],
+      inputFilter: ''
     };
   },
   computed: {
-    //Propiedades computadas
+    studentsListTitle() {
+      return this.students.length > 0 ? "Lista de estudantes" : ''
+    },
+    studentsFiltred() {
+      //faz o filtro do estudante baseado nas palavras
+      return this.students.filter(element => element.name.toLowerCase().includes(this.inputFilter.toLowerCase()) )
+    }
   },
   mounted() {
     // Carregamento de funções após carregamento do dom e propriedades data()
@@ -123,9 +145,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+
+h1, h2 {
+  text-align: center;
+  padding: 10px;
+}
+
 .body {
-  margin: 0 50vw;
+  margin: 0 40vw;
+  padding: 30px 20px;
 }
 
 .add {
@@ -136,7 +165,11 @@ export default {
 
 .form {
   display: grid;
-  grid-template-rows: repeat(5, 40px);
+  grid-template-rows: repeat(5, 50px);
+  background-color: rgb(182, 182, 182);
+  padding: 40px;
+  border-radius: 3px;
+  margin: 10px;
 }
 
 .form-buttons {
@@ -148,7 +181,8 @@ export default {
 
 .buttonCancel,
 .buttonSave {
-  padding: 4px;
+  padding: 10px;
+  border-radius: 3px;
 }
 
 .buttonCancel {
@@ -158,7 +192,12 @@ export default {
 
 .students {
   background-color: gray;
-  box-sizing: border-box;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  margin: 10px;
 }
 
 .buttonSave {
@@ -169,5 +208,18 @@ export default {
 .buttonRemoveStudent {
   background-color: red;
   color: white;
+  padding: 10px;
+}
+
+.titless {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.filter {
+  padding: 40px;
+  display: grid;
+  grid-template-rows: repeat(2, 50px);
 }
 </style>
